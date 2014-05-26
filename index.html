@@ -1,7 +1,133 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<title> Sentinel LDA Panel </title>
+	
+	<link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/mobile.css"
+	 
+          media="screen and (max-device-width: 768px) and (orientation: portrait),
+                 screen and (max-device-width: 1024px) and (orientation: landscape)"/>
+                 
+    <link rel="apple-touch-icon-precomposed" href="images/ios-icon.png"/>  
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ios-icon-ipad.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ios-icon-iphone4.png"/>
+
+    <link rel="apple-touch-startup-image" 
+          href="images/ios-startup-748x1024.png" 
+          media="screen and (min-device-width: 768px) and (orientation:landscape)" />
+    <link rel="apple-touch-startup-image" 
+          href="images/ios-startup-768x1004.png" 
+          media="screen and (min-device-width: 768px) and (orientation:portrait)" />
+    <link rel="apple-touch-startup-image" 
+          href="images/ios-startup-320x460.png"
+          media="screen and (max-device-width:320px)"/>
+
+    <meta name="apple-mobile-web-app-status-bar-style" 
+          content="black" />
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="http://d23cj0cdvyoxg0.cloudfront.net/xivelyjs-1.0.4.min.js"></script>
+			
+	<script src="scripts/modernizr.js"></script>
+	<script src="scripts/loader.js"></script>
+	
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+	<div id="main">
+		<div id="xively_element" style="display:block;">
+			
+		<div id="leakDefenseAlert_Logo"></div>
+		<div class="screen" id="splash-screen">Click to continue</div>
+		
+        <div class="screen" id="install-screen">
+        	<span>Click the <img src="images/install-icon.png" alt="Install icon"> 
+                button to install Sentinel to your home screen.
+			</span>
+        </div>
+	
+        <div class="screen" id="mode-menu">
+			
+			<div id="gaugeBody">
+        		<div id="gaugeMin">0%</div>
+				<div id="gaugeTrack">
+					<div id="gaugeIndicator"></div>
+				</div>
+        		<div id="gaugeMax">100%</div>
+    		</div>
+            <ul class="menu">
+                <li><div class="backbar">
+					<button class="selector" type="button" name="home">HOME</button> 
+					<button class="time" type="button" name="home">00:50</button> 
+					<div id="edit_arrows_Img"></div>
+					<div id="home_gradient"></div>
+				</div>
+					
+                <li><div class="backbar">
+					<button class="selector" type="button" name="away">AWAY</button> 
+					<button class="time" type="button" name="away">00:10</button> 
+					<div id="edit_arrows_Img"></div>
+					<div id="away_gradient"></div>
+				</div>
+				
+                <li><div class="backbar">
+					<button class="selector" type="button" name="standby">STANDBY</button> 
+					<button class="time" type="button" name="standby">04:00</button> 
+					<div id="edit_arrows_Img"></div>
+					<div id="standby_gradient"></div>
+				</div>
+             </ul>
+			 <div id="main_footer">
+ 			 	<button id="droplet_img" type="button"></button>
+			 	<div id="message_box">Hi There!</div>
+			</div>
+        </div>
+		
+		<div class="screen" id="numpad-screen">
+			<div id="numpad_entry">
+				<button id="numpad_return" type="button">01:00</button>
+				<table>
+					<tr>
+						<td class="outer"><button class="inner">7</button></td>
+						<td class="outer"><button class="inner">8</button></td>
+						<td class="outer"><button class="inner">9</button></td>
+					</tr>
+					<tr>
+						<td class="outer"><button class="inner">4</button></td>
+						<td class="outer"><button class="inner">5</button></td>
+						<td class="outer"><button class="inner">6</button></td>
+					</tr>
+					<tr>
+						<td class="outer"><button class="inner">1</button></td>
+						<td class="outer"><button class="inner">2</button></td>
+						<td class="outer"><button class="inner">3</button></td>
+					</tr>
+					<tr>
+						<td class="outer"><button class="inner">0</button></td>
+						<td class="outer"><button class="inner">:</button></td>
+						<td class="outer"><button class="inner">DEL</button></td>
+					</tr>
+				</table>
+				<button id="numpad_back" type="button"></button>
+			</div>			
+		</div>
+		
+		<div class="screen" id="xively-screen">
+			<div id="xivelydata"></div>
+			<button id="ioTest">Press me to get data!</button>
+			
+			<div id="xivelyset">
+				<input type="number" name="quantity" min="1" max="5">
+				<button id="ioTestset">Press me to set data!</button>
+			</div>
+        
+		</div>
+		
+		
+	</div>	
+	        	
 </body>
 </html>

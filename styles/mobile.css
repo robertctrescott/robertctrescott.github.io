@@ -1,0 +1,74 @@
+
+@media (max-device-width: 460px) {
+    #main {
+		height : 480px;
+    }
+}
+
+
+/* use a smaller base size for small screens */
+@media (max-device-width: 480px) {
+    #main {
+		height : 600px;
+    }
+}
+
+/* use a bigger base size for tablets */
+@media (min-device-width: 768px) {
+    #main {
+        font-size : 64px;
+    }
+}
+
+/* smartphones landscape */
+@media (orientation: landscape) {
+    #splash-screen,
+    #main-menu {
+        font-size : 1.0em;
+        padding-top : 0.75em;
+    }
+    ul.menu li {
+        margin : 0;
+    }
+    ul.menu li button {
+        font-size : 0.5em;
+    }
+}
+
+/* small screens landscape */
+@media (orientation: landscape) and (max-device-width : 480px) {
+    ul.menu li button {
+        font-size : 0.4em;
+    }    
+}
+
+/* tablets landscape */
+@media (orientation: landscape) and (min-device-width : 768px) {
+    #splash-screen,
+    #main-menu {
+        padding-top : 1.5em;
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+       only screen and (min--moz-device-pixel-ratio: 2),
+       only screen and (-o-min-device-pixel-ratio: 2/1),
+       only screen and (min-device-pixel-ratio: 2),
+       only screen and (min-resolution: 2dppx) {
+    #droplet_Img
+    {
+        background-image: url(../images/droplet_Img_2x.png);
+        background-size: 78px 100px;
+    }
+    #leakDefenseAlert_Logo
+    {
+        background-image: url(../images/lDA_Img_2x.png);
+        background-size: 318px 126px;
+    }
+    #edit_arrows_Img
+    {
+        background-image: url(../images/edit_arrows_Img_2x.png);
+        background-size: 16px 32px;
+    }
+}
+
