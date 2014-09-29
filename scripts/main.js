@@ -2,9 +2,10 @@
 ldap.main = (function() {
     var dom = ldap.dom;
 	
-    var feedID        = 1652583299,          	// Feed ID  
+    var feedID        = 1652583299,          		// Feed ID  
         datastreamID  = "home",       				// Datastream ID  
-        dataValue;
+        dataValue,
+		xivelyKey     = "4GXaPPERh9TfhMMc8ODVYrxoVzzQAbDdfOW7mtFfylHISPAW";
 	
 
     /* hide the active screen (if any) and show the screen
@@ -42,7 +43,7 @@ ldap.main = (function() {
 	
 	// this makes xively link up to server and pull down the device feed when data changes or updates
 	function fire_xively(){
-		xively.setKey( "4GXaPPERh9TfhMMc8ODVYrxoVzzQAbDdfOW7mtFfylHISPAW" );
+		xively.setKey(xivelyKey);
 			
 	    xively.feed.get (feedID, function ( datastream ) {  
 			dataValue = datastream;
@@ -57,7 +58,7 @@ ldap.main = (function() {
 	};
 	
 	function fire_xivelyDatastream(){
-		xively.setKey( "4GXaPPERh9TfhMMc8ODVYrxoVzzQAbDdfOW7mtFfylHISPAW" ); 
+		xively.setKey(xivelyKey); 
 		
 	    xively.datastream.get (feedID, datastreamID, function ( datastream ) {  
 			dataValue = (datastream["current_value"]);
@@ -69,10 +70,50 @@ ldap.main = (function() {
 	    });	
 	};
 	
+	/*
+	
+	function push_imp_mode(theMode){
+		$.post(impURL+theMode);	
+	}
+	
+		
+	function read_imp_data() {
+		var data_file = impURL+"?getPanel=1";
+		var http_request = new XMLHttpRequest();
+		try {
+			// Opera 8.0+, Firefox, Chrome, Safari
+			http_request = new XMLHttpRequest();
+		} catch (e) {
+			// Internet Explorer Browsers
+			try {
+				http_request = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					http_request = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {
+					alert("Something went wrong. :/");
+					return false;
+				}
+			}
+		}
+
+		http_request.onreadystatechange = function(){
+			if (http_request.readyState == 4) {
+				if (http_request.status == 200) {
+					dataValue = JSON.parse(http_request.responseText);
+				} 				
+			}
+			setTimeout(read_imp_data, 1000);
+		}
+		http_request.open("GET", data_file, true);
+		http_request.send();
+	}
+	*/
+	
 	
 	// this writes new value data into the designated streamID and updates the server	
 	function push_xively(streamID, value){		
-		xively.setKey( "4GXaPPERh9TfhMMc8ODVYrxoVzzQAbDdfOW7mtFfylHISPAW" );
+		xively.setKey(xivelyKey);
 		xively.datastream.get (feedID, streamID, function ( datastream ) {  
 			datastream["current_value"] = value;
 			xively.datastream.update(feedID, streamID, datastream, function(){

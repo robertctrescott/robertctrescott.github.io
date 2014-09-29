@@ -36,7 +36,7 @@ if (Modernizr.standalone) {
         load : [
 			"scripts/screen.mode-menu.js",
 			"scripts/screen.numpad-screen.js",
-			"scripts/screen.xively-screen.js"
+			"scripts/screen.more-screen.js"
 		]
     }
     ]);

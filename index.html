@@ -36,6 +36,7 @@
 	<script src="scripts/loader.js"></script>
 	
 </head>
+
 <body>
 	<div id="main">
 		<div id="xively_element" style="display:block;">
@@ -50,7 +51,6 @@
         </div>
 	
         <div class="screen" id="mode-menu">
-			
 			<div id="gaugeBody">
         		<div id="gaugeMin">0%</div>
 				<div id="gaugeTrack">
@@ -115,13 +115,26 @@
 			</div>			
 		</div>
 		
-		<div class="screen" id="xively-screen">
-			<div id="xivelydata"></div>
-			<button id="ioTest">Press me to get data!</button>
+		<div class="screen" id="more-screen">
+			<ul class="menu">
+				<li><div class="backbar">
+					<button class="more_selector" type="button" name="water_on">WATER ON</button> 
+					<div id="green_gradient"></div>
+				</div>
+				
+				<li><div class="backbar">
+					<button class="more_selector" type="button" name="water_off">WATER OFF</button> 
+					<div id="yellow_gradient"></div>
+				</div>
 			
-			<div id="xivelyset">
-				<input type="number" name="quantity" min="1" max="5">
-				<button id="ioTestset">Press me to set data!</button>
+				<li><div class="backbar">
+					<button class="more_selector" type="button" name="calibrate">CALIBRATE SYSTEM</button> 
+					<div id="red_gradient"></div>
+				</div>
+			</ul>
+			<div id="main_footer">
+				<button id="droplet_img" type="button"></button>
+				<div id="message_box">Click on me to go back to the Selection menu!</div>
 			</div>
         
 		</div>
