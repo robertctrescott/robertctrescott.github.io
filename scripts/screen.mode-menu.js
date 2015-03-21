@@ -10,9 +10,6 @@ ldap.screens["mode-menu"] = (function() {
 			standbyTime : 120,
 			leakTime : 0,
 			curFlow : 0,
-			inAlarm : false,
-			inCalib : false,
-			water_off : false,
 			curMode : "home"
 	};	
 
@@ -24,7 +21,6 @@ ldap.screens["mode-menu"] = (function() {
 				
 				if (e.target.className === "selector"){		// setup the mode
 					ldam.curMode = buttonText.toLowerCase();
-					ldam.inAlarm = false;
 					main.push_xively("status",parseInt(mode2status(ldam)));
 					
 				} else if (e.target.className === "time"){	// setup the time
@@ -63,53 +59,11 @@ ldap.screens["mode-menu"] = (function() {
 			$("#standby_gradient").css('display','none');
 
 			// set the current active bar to visible
-			if (!ldam.water_off){
+			if (ldam.curMode != "water_off"){
 				$("#"+ldam.curMode+"_gradient").css('display','block');	
 			}					
         }
     }
-
-/*	
-	function update_imp(e){
-		var panelData = main.readDataValue();
-		if (panelData !== undefined){
-
-			ldam.homeTime = panelData.home;
-			var element = "[name~='"+"home"+"']:last";
-			$(element).html(mins2time(ldam.homeTime));
-		
-			ldam.awayTime = panelData.away;
-			element = "[name~='"+"away"+"']:last";
-			$(element).html(mins2time(ldam.awayTime));
-		
-			ldam.standbyTime = panelData.standby;
-			element = "[name~='"+"standby"+"']:last";
-			$(element).html(mins2time(ldam.standbyTime));
-		
-			var statusVal = panelData.status;
-			ldam.curFlow = panelData.gauge;
-		
-			status2mode(statusVal);		
-			// clear all back bars
-			$("#home_gradient").css('display','none');
-			$("#away_gradient").css('display','none');
-			$("#standby_gradient").css('display','none');
-			// set the current active bar to visible
-			$("#"+ldam.curMode+"_gradient").css('display','block');
-			// we need to see flow bar percentage
-			setFlowGraphPercent(ldam.curFlow);
-			// calculate leak time based on time setting and % of gauge duration
-			switch (ldam.curMode){
-				case "home" : 	ldam.leakTime = ldam.homeTime*(ldam.curFlow/100); 	break;
-				case "away" : 	ldam.leakTime = ldam.awayTime*(ldam.curFlow/100); 	break;
-				case "standby": ldam.leakTime = ldam.standbyTime*(ldam.curFlow/100); break;
-			}
-			// use leak time to prompt and indicate messages to screen
-			HandleMessageBoxUpdate();
-		}
-	};
-*/
-	
 	
 	function update(){
 		var statusVal;		
@@ -136,7 +90,7 @@ ldap.screens["mode-menu"] = (function() {
 			$("#standby_gradient").css('display','none');
 
 			// set the current active bar to visible
-			if (!ldam.water_off){
+			if (ldam.curMode != "water_off"){
 				$("#"+ldam.curMode+"_gradient").css('display','block');						
 			}
 			// we need to see flow bar percentage
@@ -155,13 +109,13 @@ ldap.screens["mode-menu"] = (function() {
 	function HandleMessageBoxUpdate(){
 		var mins = parseInt(ldam.leakTime);
 		
-		if (ldam.inAlarm){
+		if (ldam.curMode == "alarm_on"){
 			$("#message_box").css("color","#FFFF00");	// we want yellow text for alarm
 			$("#message_box").html("*ALARM* --Water has been flowing for over "+mins+" minutes. --You may have a LEAK!");
-		} else if (ldam.inCalib){
+		} else if (ldam.curMode == "calibrate"){
 			$("#message_box").css("color","#FFFF00");	// we want yellow text for alarm
 			$("#message_box").html("Processing, please wait. *Water must be off*");
-		} else if (ldam.water_off){
+		} else if (ldam.curMode == "water_off"){
 			$("#message_box").css("color","#FFFF00");	// we want yellow text for alarm
 			$("#message_box").html("Water has been manually shut off.  --Tap me for more...");	
 		} else {
@@ -220,6 +174,8 @@ ldap.screens["mode-menu"] = (function() {
 			case 5: ldam.curMode = "alarm_off"; break;
 			case 6: ldam.curMode = "water_on"; break;
 			case 7: ldam.curMode = "water_off"; break;
+			case 9: ldam.curMode = "cal_zero"; break;
+			case 10: ldam.curMode = "cal_high"; break;
 		}
 	}
 	
@@ -234,6 +190,8 @@ ldap.screens["mode-menu"] = (function() {
 			case "alarm_off": 	value = 5; break;
 			case "water_on": 	value = 6; break;
 			case "water_off": 	value = 7; break;
+			case "cal_zero": 	value = 9; break;
+			case "cal_high": 	value = 10; break;
 		}
 		return value;
 	}
