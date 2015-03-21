@@ -211,61 +211,30 @@ ldap.screens["mode-menu"] = (function() {
 	}
 	
 	function status2mode(theStatus){
-		/* here is the structure of status
-			run 		: 1; // bit 0  mask 1 		powered up
-			calib 		: 1;				2		calibration mode running
-			in_away		: 1;				4		away = true, home = false
-			in_stby		: 1;				8		in standby mode
-			in_cycle	: 1;				16		???
-			in_alarm	: 1;				32		active alarm mode
-			water_off	: 1;				64		water is override off
-			b7			: 1;				128		???
-		*/
-		
-		//ldam.curMode="none";	// default to none
-				
-		if (theStatus & 2){				// are we in active calibration
-			ldam.inCalib = true;
-			ldam.curMode = "none";
-			ldam.inAlarm = false;
-			ldam.water_off = false
-		} else {
-			ldam.inCalib = false;
-		}
-
-		if (theStatus & 64){			// is the water turned off
-			ldam.water_off = true; 
-			ldam.inAlarm = false;
-			ldam.inCalib = false;
-			//ldam.curMode = "none";
-		} else { 
-			ldam.water_off = false;
-		}
-
-		if (theStatus & 32){	
-			ldam.inAlarm = true;
-			ldam.inCalib = false;
-			ldam.water_off = true; 
-		} else {
-			ldam.inAlarm = false;
-		}
-		
-		if (!ldam.inCalib && !ldam.water_off){
-			if (theStatus & 8) 	    ldam.curMode="standby";
-			else if (theStatus & 4) ldam.curMode="away";
-			else ldam.curMode="home";
+		switch(theStatus){
+			case 0: ldam.curMode = "none"; break;
+			case 1: ldam.curMode = "home"; break;
+			case 2: ldam.curMode = "away"; break;
+			case 3: ldam.curMode = "standby"; break;
+			case 4: ldam.curMode = "alarm_on"; break;
+			case 5: ldam.curMode = "alarm_off"; break;
+			case 6: ldam.curMode = "water_on"; break;
+			case 7: ldam.curMode = "water_off"; break;
 		}
 	}
 	
 	function mode2status(){
-		// see structure above, we will make a value from the current mode
-		var value = 1;			// default with system running
-		if (ldam.curMode === "standby") 		value+=8;
-		else if (ldam.curMode === "away") 		value+=4;
-		
-		if (ldam.inCalib)						value+=2;
-		if (ldam.inAlarm)						value+=32;
-		if (ldam.water_off)						value+=64;
+		var value = 0;
+		switch(ldam.curMode){
+			case "none": 		value = 0; break;
+			case "home": 		value = 1; break;
+			case "away": 		value = 2; break;
+			case "standby": 	value = 3; break;
+			case "alarm_on": 	value = 4; break;
+			case "alarm_off": 	value = 5; break;
+			case "water_on": 	value = 6; break;
+			case "water_off": 	value = 7; break;
+		}
 		return value;
 	}
 	
